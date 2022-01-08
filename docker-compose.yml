@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+    builder:
+      build: .
+      environment:
+        - UPLOAD_URL=http://platformio-cdn_uploader
+      networks:
+        - platformio-cdn-private
+
+networks:
+    platformio-cdn-private:
+        external: true
