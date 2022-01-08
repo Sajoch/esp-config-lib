@@ -1,0 +1,14 @@
+{
+	"version": 1,
+	"startOffset": 32,
+	"fields": [
+		{"name": "WiFiSSID", "type": "string"},
+		{"name": "WiFiPassword", "type": "string"},
+		{"name": "ServerHostname", "type": "string"},
+		{"name": "ServerPath", "type": "string"},
+		{"name": "ServerCertificateFingerPrint", "type": "string"},
+		{"name": "DeviceId", "type": "string"},
+		{"name": "AuthKey", "type": "string"},
+		{"name": "ServerPort", "type": "uint16"}
+	]
+}
