@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'library.json')));
 const content = fs.readFileSync('data_format.json');
 const data = JSON.parse(content);
 
@@ -20,8 +21,21 @@ for (const o of fields) {
 	currentAddress += addressIncrement;
 }
 
-fs.writeFileSync(`src/${outputFilename}.h`, generateHeader(outputFilename));
-fs.writeFileSync(`src/${outputFilename}.cpp`, generateSource(outputFilename));
+const zip = new nodeZip();
+
+const srcs = fs.readdirSync('src');
+for (const o of srcs) {
+	zip.file(`src/${o}`, fs.readFileSync(path.join(__dirname, `src/${o}`)));
+}
+zip.file(`src/${outputFilename}.h`, generateHeader(outputFilename));
+zip.file(`src/${outputFilename}.cpp`, generateSource(outputFilename));
+zip.file(`library.json`, fs.readFileSync(path.join(__dirname, 'library.json')));
+
+const zipData = zip.generate({ base64: false, compression: 'DEFLATE' });
+
+fs.promises.mkdir('build', { recursive: true });
+fs.writeFileSync(`build/${config.name}-${config.version}.zip`, zipData, 'binary');
+
 
 function generateHeader(outputName) {
 	let generatedOutput = '';
