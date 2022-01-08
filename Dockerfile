@@ -5,4 +5,6 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-CMD [ "node", "index.js" ]
+RUN node index.js
+
+CMD [ "node", "upload.js" ]

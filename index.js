@@ -1,11 +1,6 @@
 const fs = require('fs');
-const path = require('path');
-const nodeZip = require('node-zip');
-
 
 const content = fs.readFileSync('data_format.json');
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'library.json')));
-
 const data = JSON.parse(content);
 
 const definedTypes = {
@@ -25,17 +20,8 @@ for (const o of fields) {
 	currentAddress += addressIncrement;
 }
 
-const zip = new nodeZip();
-zip.file(`src/${outputFilename}.h`, generateHeader(outputFilename));
-zip.file(`src/${outputFilename}.cpp`, generateSource(outputFilename));
-zip.file('src/ConfigImpl.h', fs.readFileSync(path.join(__dirname, 'src/ConfigImpl.h')));
-zip.file('src/ConfigImpl.cpp', fs.readFileSync(path.join(__dirname, 'src/ConfigImpl.cpp')));
-zip.file(`library.json`, fs.readFileSync(path.join(__dirname, 'library.json')));
-
-const zipData = zip.generate({ base64: false, compression: 'DEFLATE' });
-
-fs.promises.mkdir('build', { recursive: true });
-fs.writeFileSync(`build/${config.name}-${config.version}.zip`, zipData, 'binary');
+fs.writeFileSync(`src/${outputFilename}.h`, generateHeader(outputFilename));
+fs.writeFileSync(`src/${outputFilename}.cpp`, generateSource(outputFilename));
 
 function generateHeader(outputName) {
 	let generatedOutput = '';
