@@ -25,4 +25,4 @@ axios({
 	data: form
 })
 	.then(res => console.log('ok'))
-	.catch(err => console.error('failed'));
+	.catch(err => console.error(err));
