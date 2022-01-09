@@ -27,7 +27,6 @@ axios({
 })
 	.then(res => console.log('ok'))
 	.catch(err => {
-		console.log(err);
 		console.log(`failed to upload to ${url}`);
 		process.exit(1);
 	});
