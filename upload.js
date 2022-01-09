@@ -11,9 +11,10 @@ const outputFile = `esp/${config.name}-${config.version}.zip`;
 const form = new FormData();
 form.append('data', fs.createReadStream(file));
 form.append('name', outputFile);
+const url = process.env.UPLOAD_URL || 'http://localhost/upload';
 
 axios({
-	url: process.env.UPLOAD_URL || 'http://localhost/upload',
+	url: url,
 	method: 'post',
 	headers: {
 		...form.getHeaders()
@@ -25,4 +26,7 @@ axios({
 	data: form
 })
 	.then(res => console.log('ok'))
-	.catch(err => console.error(err));
+	.catch(err => {
+		console.log(`failed to upload to ${url}`);
+		process.exit(1);
+	});
