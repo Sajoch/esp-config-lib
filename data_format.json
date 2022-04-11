@@ -2,6 +2,7 @@
 	"version": 1,
 	"startOffset": 32,
 	"fields": [
+		{"name": "AppName", "type": "string"},
 		{"name": "WiFiSSID", "type": "string"},
 		{"name": "WiFiPassword", "type": "string"},
 		{"name": "ServerHostname", "type": "string"},
