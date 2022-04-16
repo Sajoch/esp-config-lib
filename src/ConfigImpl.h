@@ -9,6 +9,7 @@ class ConfigImpl {
   ConfigImpl(TwoWire* peripherialBus, uint8_t address, uint8_t version);
   bool IsValid();
   std::string ReadString(uint16_t dataAddress);
+  std::string ReadSecureString(uint16_t dataAddress);
   uint16_t ReadUint16(uint16_t dataAddress);
 
  private:
@@ -19,4 +20,5 @@ class ConfigImpl {
   TwoWire* peripherialBus_;
   uint8_t address_;
   const uint8_t version_;
+  const uint8_t secureByte_;
 };

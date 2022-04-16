@@ -6,6 +6,7 @@ const data = JSON.parse(content);
 const definedTypes = {
 	'string': { cType: 'std::string', getter: 'ReadString' },
 	'uint16': { cType: 'uint16_t', getter: 'ReadUint16' },
+	'secure-string': { cType: 'std::string', getter: 'ReadSecureString'}
 };
 
 let addressMap = {};

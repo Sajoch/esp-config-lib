@@ -3,8 +3,9 @@
 const uint8_t VERSION = 1;
 
 ConfigImpl::ConfigImpl(TwoWire* peripherialBus, uint8_t address,
-                       uint8_t version)
-    : peripherialBus_(peripherialBus), address_(address), version_(version) {}
+                       uint8_t version, uint8_t secureByte)
+    : peripherialBus_(peripherialBus), address_(address), version_(version),
+    secureByte_(secureByte) {}
 
 bool ConfigImpl::IsValid() {
   uint8_t header[8] = {0};
@@ -66,6 +67,23 @@ std::string ConfigImpl::ReadString(uint16_t dataAddress) {
   if (size == 0) return "";
   std::string data(size, 0);
   if (ReadContent(dataAddress, (uint8_t*)&data[0], size) != size) return "";
+  return data;
+}
+
+std::string ConfigImpl::ReadSecureString(uint16_t dataAddress) {
+  auto size = ReadContent(dataAddress, 0, 0);
+  if (size == 0) return "";
+  std::string data(size, 0);
+  if (ReadContent(dataAddress, (uint8_t*)&data[0], size) != size) return "";
+
+  auto xorByte = secureByte;
+  for (auto it = data.begin() ; it != data.end(); ++it) {
+        std::cout << *it << ' ';
+    auto plainCharacter = (*it) ^ xorByte;
+    xorByte = (*it) * xorByte;
+    *it = plainCharacter;
+  }
+  
   return data;
 }
 

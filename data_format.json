@@ -3,13 +3,13 @@
 	"startOffset": 32,
 	"fields": [
 		{"name": "AppName", "type": "string"},
-		{"name": "WiFiSSID", "type": "string"},
-		{"name": "WiFiPassword", "type": "string"},
+		{"name": "WiFiSSID", "type": "secure-string"},
+		{"name": "WiFiPassword", "type": "secure-string"},
 		{"name": "ServerHostname", "type": "string"},
 		{"name": "ServerPath", "type": "string"},
 		{"name": "ServerCertificateFingerPrint", "type": "string"},
 		{"name": "DeviceId", "type": "string"},
-		{"name": "AuthKey", "type": "string"},
+		{"name": "AuthKey", "type": "secure-string"},
 		{"name": "ServerPort", "type": "uint16"}
 	]
 }
